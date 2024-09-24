@@ -4,7 +4,8 @@ import userController from '../controllers/userController';
 
 const router = new Router();
 
-router.get('/', userController.index);
+router.get('/recovery', userController.show);
 router.post('/', userController.post);
+router.put('/update/:id');
 
 export default router;
