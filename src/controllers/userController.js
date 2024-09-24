@@ -3,15 +3,25 @@ import User from '../models/User';
 class UserController {
   async post(req, res) {
     try {
-      const newUser = await User.create(req.body);
+      const data = req.body;
 
-      const { id, userEmail, userName } = newUser;
+      await User.create(data);
+
+      const { id, userEmail, userName } = data;
 
       res.json({ id, userEmail, userName });
 
       res.json({ id, userEmail, userName });
     } catch (e) {
-      res.status(400).json({ errors: e.errors });
+      if (e.errors) {
+        return res
+          .status(400)
+          .json({ errors: e.errors.map((msg) => msg.message) });
+      }
+
+      return res
+        .status(500)
+        .json({ error: 'Something went wrong in the server' });
     }
   }
   async index(req, res) {

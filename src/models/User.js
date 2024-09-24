@@ -5,7 +5,7 @@ export default class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        userName: {
+        user_name: {
           type: Sequelize.STRING,
           defaultValue: '',
           validate: {
@@ -15,7 +15,7 @@ export default class User extends Model {
             },
           },
         },
-        userEmail: {
+        user_email: {
           type: Sequelize.STRING,
           defaultValue: '',
           unique: {
@@ -28,7 +28,7 @@ export default class User extends Model {
           },
         },
 
-        paswordHash: {
+        password_hash: {
           type: Sequelize.STRING,
           defaultValue: '',
         },
@@ -48,13 +48,14 @@ export default class User extends Model {
     );
 
     this.addHook('beforeSave', async (user) => {
-      if (user.password)
-        user.paswordHash = await bcryptjs.hash(user.password, 8);
+      if (user.password) {
+        user.password_hash = await bcryptjs.hash(user.password, 8);
+      }
     });
     return this;
   }
 
   passwordValidator(password) {
-    return bcryptjs.compare(password, this.paswordHash);
+    return bcryptjs.compare(password, this.password_hash);
   }
 }

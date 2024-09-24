@@ -1,4 +1,6 @@
 *.env
+*.zip
 dist
 node_modules
 package-lock.json
+migrations
