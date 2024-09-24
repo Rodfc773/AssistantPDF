@@ -1,4 +1,4 @@
-import { Model, Sequelize } from 'sequelize';
+import Sequelize, { Model } from 'sequelize';
 import bcryptjs from 'bcrypt';
 
 export default class User extends Model {
@@ -34,7 +34,7 @@ export default class User extends Model {
         },
 
         password: {
-          type: Sequelize.VITUAL,
+          type: Sequelize.VIRTUAL,
           defaultValue: '',
           validate: {
             len: {

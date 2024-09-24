@@ -1,7 +1,10 @@
 import { Router } from 'express';
 
+import userController from '../controllers/userController';
+
 const router = new Router();
 
-router.get('/', async (req, res) => res.send('Welcome to the users router!'));
+router.get('/', userController.index);
+router.post('/', userController.post);
 
 export default router;
