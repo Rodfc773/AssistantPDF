@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
 
-export async function authentication(req, res, next) {
+export default async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization)
@@ -24,7 +24,7 @@ export async function authentication(req, res, next) {
   } catch (error) {
     res.status(401).json({ errors: ['Expired or invalid token'] });
   }
-}
+};
 
 function getBearerToken(token) {
   const tokenString = token.split(' ');
@@ -33,15 +33,15 @@ function getBearerToken(token) {
 
 function retrieveUserData(token) {
   const data = jwt.verify(token, process.env.TOKEN_SECRET);
-  const { id, email } = data;
+  const { id, user_email } = data;
 
-  return { id, email };
+  return { id, user_email };
 }
-async function findUser(id, email) {
+async function findUser({ id, user_email }) {
   const user = await User.findOne({
     where: {
       id,
-      email,
+      user_email,
     },
   });
 

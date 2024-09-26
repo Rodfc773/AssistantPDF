@@ -7,6 +7,6 @@ const router = new Router();
 
 router.get('/recovery', userController.show);
 router.post('/create', userController.post);
-router.put('/update/', autorizathion, userController.update);
+router.put('/update', autorizathion, userController.update);
 
 export default router;
