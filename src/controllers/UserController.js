@@ -64,6 +64,23 @@ class UserController {
         .json({ errors: e.errors.map((err) => err.message) });
     }
   }
+  async delete(req, res) {
+    const { user_email } = req.body;
+
+    try {
+      const user = await User.findOne({ where: { user_email } });
+
+      if (!user) res.status(400).json({ errors: ['User was not found'] });
+
+      await user.destroy();
+
+      return res.json(user);
+    } catch (e) {
+      return res
+        .status(400)
+        .json({ errors: e.errors.map((err) => err.message) });
+    }
+  }
 }
 
 export default new UserController();

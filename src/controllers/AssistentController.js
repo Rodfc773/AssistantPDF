@@ -1,6 +1,6 @@
 import { chatResponse } from '../integrations/chat';
 
-class GptController {
+class AssistantController {
   async getMessage(req, res) {
     let { content, id } = req.query;
     const chats = [];
@@ -26,4 +26,4 @@ class GptController {
   }
 }
 
-export default new GptController();
+export default new AssistantController();
