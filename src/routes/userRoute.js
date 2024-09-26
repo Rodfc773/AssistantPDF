@@ -1,11 +1,12 @@
 import { Router } from 'express';
 
 import userController from '../controllers/userController';
+import autorizathion from '../middlewares/loginRequired';
 
 const router = new Router();
 
 router.get('/recovery', userController.show);
-router.post('/', userController.post);
-router.put('/update/:id');
+router.post('/create', userController.post);
+router.put('/update/', autorizathion, userController.update);
 
 export default router;
