@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import assistantControllerController from '../controllers/AssistentController';
+import assistantController from '../controllers/AssistentController';
+import { extractTextFromPDF } from '../middlewares/extractTextPDF';
 
 const router = new Router();
 
-router.get('/', assistantControllerController.getMessage);
+router.get('/', assistantController.getMessage);
+router.post('/upload', extractTextFromPDF);
 
 export default router;

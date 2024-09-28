@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
 
-export default async (req, res, next) => {
+export async function loginAuthorization(req, res, next) {
   const { authorization } = req.headers;
 
   if (!authorization)
@@ -24,7 +24,7 @@ export default async (req, res, next) => {
   } catch (error) {
     res.status(401).json({ errors: ['Expired or invalid token'] });
   }
-};
+}
 
 function getBearerToken(token) {
   const tokenString = token.split(' ');

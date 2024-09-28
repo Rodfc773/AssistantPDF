@@ -24,6 +24,12 @@ class AssistantController {
 
     res.json({ response: assistantAnswer, id: id });
   }
+
+  async sendPDFText(req, res) {
+    const text = req.extractedText;
+
+    res.json({ Text: text });
+  }
 }
 
 export default new AssistantController();
