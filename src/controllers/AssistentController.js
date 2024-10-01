@@ -16,13 +16,17 @@ class AssistantController {
 
     chats[id].push({ content: content, role: 'user' });
 
-    const answer = await chatResponse(chats[id]);
+    try {
+      const answer = await chatResponse(chats[id]);
 
-    const assistantAnswer = answer.choices[0].message;
+      const assistantAnswer = answer.choices[0].message;
 
-    chats[id].push(assistantAnswer);
+      chats[id].push(assistantAnswer);
 
-    res.json({ response: assistantAnswer, id: id });
+      res.json({ response: assistantAnswer, id: id });
+    } catch (e) {
+      res.status(500).json(e);
+    }
   }
 
   async sendPDFText(req, res) {

@@ -16,8 +16,6 @@ export function extractTextFromPDF(req, res, next) {
     try {
       const file = req.file;
 
-      console.log(file);
-
       if (file) {
         const filePath = path.resolve(file.path);
         const dataBuffer = fs.readFileSync(filePath);

@@ -6,6 +6,6 @@ import { extractTextFromPDF } from '../middlewares/extractTextPDF';
 const router = new Router();
 
 router.get('/', assistantController.getMessage);
-router.post('/upload', extractTextFromPDF);
+router.post('/upload', extractTextFromPDF, assistantController.sendPDFText);
 
 export default router;
