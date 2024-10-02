@@ -7,7 +7,7 @@ import multerConfig from '../config/multer';
 
 const upload = multer(multerConfig).single('file');
 
-export function extractTextFromPDF(req, res, next) {
+export async function extractTextFromPDF(req, res, next) {
   return upload(req, res, async (error) => {
     if (error) {
       return res.status(400).json({ errors: [error.code] });
@@ -16,18 +16,16 @@ export function extractTextFromPDF(req, res, next) {
     try {
       const file = req.file;
 
-      if (file) {
-        const filePath = path.resolve(file.path);
-        const dataBuffer = fs.readFileSync(filePath);
+      if (!file) return res.status(400).json({ errors: ['There are no file'] });
 
-        const fileData = await PDF(dataBuffer); // Aguarda a resolução da Promise
+      const filePath = path.resolve(file.path);
+      const dataBuffer = fs.readFileSync(filePath);
 
-        req.extractedText = fileData.text;
+      const fileData = await PDF(dataBuffer); // Aguarda a resolução da Promise
 
-        return next();
-      }
+      req.extractedText = fileData.text;
 
-      return res.status(400).json({ errors: ['There are no file'] });
+      return next();
     } catch (e) {
       return res.status(400).json({ errors: [e.code] });
     }

@@ -44,6 +44,18 @@ Por enquanto a API está apenas disponivel localmente, **sendo nescessário ter 
 
 ### Rota dos tokens
 
+* Para se manter conectado e ser possivel a validação do usuário para a funcionalidade do sistema, é **nescessário que cada usuario cadastre um token de acessdo atráves da rota ```tokens/```**, passando como corpo da requisição o **```user_email```** e o **```user_password```** como campos para validação.
 
-### For future implemantations:
-- [ ] **Do the main functionality which is responsable for the Transcribe the audio of videos**
+## Rota assistant
+
+* A rota **```assistant/```** será retirada em breve, pois ela é so utilizada para teste de integração com a API do chatGPT, entretanto para masi informações, essa rota permite que mandemos mensagens normalmente para iniciar uma conversa.
+
+* A rota principal é **```assistant/uploads/```** a qual é feito o envio do arquivo PDF após a verificação de login do usuário e após um certo tempo, será enviada a resposta com o resumo do arquivo pelo chatGPT.
+
+**Obs: No momento a API realiza a extração de informação de arquivos PDF's simples, sendo esse um ponto a ser melhorado no futuro para que possa ser feito a extração de arquivos com conteúdos mais complexos.**
+
+### Provaveis futuras implementações:
+
+- Extração do conteudo de videos através da transcrição do audio e seu conteudo enviado ao chat para fazer um resumo do video.
+
+- Melhorar a extração de informação de arquivos PDF's,principalmente arquivos que possuem imagens, tabelas e etc.
