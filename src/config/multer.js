@@ -5,7 +5,7 @@ const random = () => Math.floor(Math.random() * 10000 + 10000);
 
 export default {
   fileFilter: (req, file, cback) => {
-    if (file.mimetype === 'application/pdf' || file.mimetype === 'video/mpeg') {
+    if (file.mimetype === 'application/pdf') {
       return cback(null, true);
     }
     return cback(new multer.MulterError('File needs to be a PDF document'));
