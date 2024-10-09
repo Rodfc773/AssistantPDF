@@ -1,11 +1,15 @@
 import { chatResponse } from '../integrations/chat';
 
 class AssistantController {
-  async getMessage(req, res) {
+  async sendAudioText(req, res) {
     const chats = [];
-    let { content, id } = req.query;
+    let { id } = req.query;
 
-    if (!content) {
+    const { audioText } = req.body;
+
+    console.log(`Chegamos até aqui: ${audioText}`);
+
+    if (!audioText) {
       return res.status(400).json('The data in content not exists');
     }
 
@@ -14,7 +18,10 @@ class AssistantController {
       id = len - 1;
     }
 
-    chats[id].push({ content: content, role: 'user' });
+    chats[id].push({
+      content: `Faça um resumo do seguinte texto ${audioText}`,
+      role: 'user',
+    });
 
     try {
       const answer = await chatResponse(chats[id]);

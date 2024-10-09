@@ -8,13 +8,18 @@ import { audioToText } from '../middlewares/transformAudioToText';
 
 const router = new Router();
 
-router.get('/', loginAuthorization, assistantController.getMessage);
 router.post(
   '/upload/pdf',
   loginAuthorization,
   extractTextFromPDF,
   assistantController.sendPDFText,
 );
-router.post('/uploads/audio', loginAuthorization, videoToAudio, audioToText);
+router.post(
+  '/uploads/audio',
+  loginAuthorization,
+  videoToAudio,
+  audioToText,
+  assistantController.sendAudioText,
+);
 
 export default router;
